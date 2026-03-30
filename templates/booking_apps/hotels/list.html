@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Отели - Channel Manager{% endblock %}
+
+{% block page_title %}
+    <i class="fas fa-hotel me-2"></i>Управление отелями
+{% endblock %}
+
+{% block page_actions %}
+    <a href="{% url 'hotels:create' %}" class="btn btn-primary">
+        <i class="fas fa-plus me-2"></i>Добавить отель
+    </a>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Статистика -->
+    <div class="col-12 mb-4">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h3 class="text-primary">{{ total_hotels }}</h3>
+                            <p class="text-muted mb-0">Всего отелей</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-hotel fa-2x text-primary"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h3 class="text-success">{{ active_hotels }}</h3>
+                            <p class="text-muted mb-0">Активных</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-check-circle fa-2x text-success"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h3 class="text-info">{{ hotels|length }}</h3>
+                            <p class="text-muted mb-0">Показано</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-eye fa-2x text-info"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h3 class="text-warning">{{ cities|length }}</h3>
+                            <p class="text-muted mb-0">Городов</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-map-marker-alt fa-2x text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Фильтры и поиск -->
+    <div class="col-12 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <form method="get" class="row g-3">
+                    <div class="col-md-4">
+                        <input type="text" 
+                               name="search" 
+                               value="{{ request.GET.search }}"
+                               class="form-control" 
+                               placeholder="Поиск по названию, городу...">
+                    </div>
+                    <div class="col-md-3">
+                        <select name="status" class="form-select">
+                            <option value="">Все статусы</option>
+                            <option value="ACTIVE" {% if request.GET.status == 'ACTIVE' %}selected{% endif %}>Активные</option>
+                            <option value="INACTIVE" {% if request.GET.status == 'INACTIVE' %}selected{% endif %}>Неактивные</option>
+                            <option value="MAINTENANCE" {% if request.GET.status == 'MAINTENANCE' %}selected{% endif %}>На обслуживании</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="city" class="form-select">
+                            <option value="">Все города</option>
+                            {% for city in cities %}
+                            <option value="{{ city }}" {% if request.GET.city == city %}selected{% endif %}>
+                                {{ city }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-search me-2"></i>Поиск
+                        </button>
+                    </div>
+                </form>
+                {% if request.GET.search or request.GET.status or request.GET.city %}
+                <div class="mt-3">
+                    <a href="{% url 'hotels:list' %}" class="btn btn-sm btn-outline-secondary">
+                        <i class="fas fa-times me-2"></i>Сбросить фильтры
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Список отелей -->
+    <div class="col-12">
+        {% if hotels %}
+            <div class="row">
+                {% for hotel in hotels %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 {% if not hotel.is_active %}border-warning{% endif %}">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">{{ hotel.name }}</h5>
+                            <span class="badge {% if hotel.status == 'ACTIVE' %}bg-success{% elif hotel.status == 'INACTIVE' %}bg-danger{% else %}bg-warning{% endif %}">
+                                {{ hotel.get_status_display }}
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <small class="text-muted">Код: {{ hotel.code }}</small>
+                            </div>
+                            
+                            <div class="mb-2">
+                                <i class="fas fa-map-marker-alt text-muted me-2"></i>
+                                <span class="text-muted">{{ hotel.city }}, {{ hotel.country }}</span>
+                            </div>
+                            
+                            <div class="mb-2">
+                                <i class="fas fa-phone text-muted me-2"></i>
+                                <span class="text-muted">{{ hotel.phone }}</span>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <i class="fas fa-envelope text-muted me-2"></i>
+                                <span class="text-muted">{{ hotel.email }}</span>
+                            </div>
+
+                            {% if hotel.stars %}
+                            <div class="mb-3">
+                                {% for i in "12345" %}
+                                    {% if forloop.counter <= hotel.stars %}
+                                        <i class="fas fa-star text-warning"></i>
+                                    {% else %}
+                                        <i class="far fa-star text-muted"></i>
+                                    {% endif %}
+                                {% endfor %}
+                                <small class="text-muted ms-2">{{ hotel.stars }}★</small>
+                            </div>
+                            {% endif %}
+
+                            <div class="d-flex justify-content-between text-center mb-3">
+                                <div>
+                                    <div class="h5 mb-0">{{ hotel.room_types.count }}</div>
+                                    <small class="text-muted">Типов номеров</small>
+                                </div>
+                                <div>
+                                    <div class="h5 mb-0">
+                                        {% with total=hotel.room_types.all %}
+                                            {% if total %}
+                                                {% for rt in total %}
+                                                    {{ rt.total_rooms }}{% if not forloop.last %}/{% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                                0
+                                            {% endif %}
+                                        {% endwith %}
+                                    </div>
+                                    <small class="text-muted">Номеров</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <div class="btn-group w-100">
+                                <a href="{% url 'hotels:detail' hotel.pk %}" 
+                                   class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{% url 'hotels:edit' hotel.pk %}" 
+                                   class="btn btn-sm btn-outline-secondary">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="{% url 'hotels:dashboard' hotel.pk %}" 
+                                   class="btn btn-sm btn-primary">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Пагинация -->
+            {% if is_paginated %}
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                                <i class="fas fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                                <i class="fas fa-angle-left"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <li class="page-item active">
+                                <span class="page-link">{{ num }}</span>
+                            </li>
+                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ num }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                                    {{ num }}
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                                <i class="fas fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                                <i class="fas fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+
+        {% else %}
+            <!-- Состояние пустого списка -->
+            <div class="card">
+                <div class="card-body text-center py-5">
+                    <i class="fas fa-hotel fa-4x text-muted mb-4"></i>
+                    <h3 class="text-muted">Отели не найдены</h3>
+                    <p class="text-muted mb-4">
+                        {% if request.GET.search or request.GET.status or request.GET.city %}
+                            Попробуйте изменить параметры поиска или фильтры
+                        {% else %}
+                            У вас еще нет добавленных отелей. Начните с добавления первого отеля.
+                        {% endif %}
+                    </p>
+                    <a href="{% url 'hotels:create' %}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-plus me-2"></i>Добавить первый отель
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
