@@ -1,374 +1,267 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HotelBooking System - модуль бронирования для отелей</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <style>
-        section {
-            scroll-margin-top: 72px;
-        }
-        .hero-section {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&h=800&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 6rem 0;
-        }
-        .feature-icon {
-            font-size: 2.5rem;
-            color: #333;
-            margin-bottom: 1rem;
-        }
-        .pricing-card {
-            transition: transform 0.3s;
-            border: none;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .pricing-card:hover {
-            transform: translateY(-10px);
-        }
-        .screenshot {
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin-bottom: 1.5rem;
-        }
-        .cta-section {
-            background-color: #f8f9fa;
-            padding: 5rem 0;
-        }
-        .integration-logo {
-            height: 60px;
-            margin: 15px;
-            filter: grayscale(100%);
-            opacity: 0.7;
-            transition: all 0.3s;
-        }
-        .integration-logo:hover {
-            filter: grayscale(0);
-            opacity: 1;
-        }
-        .navbar {
-            padding: 1rem 0;
-        }
-        .demo-form {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking Travel</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #111827; }
+:root { --primary: #2563eb; --accent: #ec4899; --success: #10b981; --warning: #f59e0b; --text-muted: #6b7280; --light: #f9fafb; --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.07); }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.navbar { background: white; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow-sm); }
+.navbar .container { display: flex; justify-content: space-between; align-items: center; }
+.navbar-brand { font-size: 1.5rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+.navbar-nav { display: flex; gap: 2rem; list-style: none; align-items: center; }
+.navbar-nav a { color: #111827; text-decoration: none; font-weight: 500; transition: color 0.3s; }
+.navbar-nav a:hover { color: var(--primary); }
+.btn { display: inline-flex; align-items: center; padding: 0.75rem 1.5rem; border: none; border-radius: 0.5rem; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; }
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { background: #1e40af; }
+.hero-section { background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%); color: white; padding: 6rem 0; text-align: center; }
+.hero-content { max-width: 800px; margin: 0 auto; }
+.hero-section h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 1.5rem; }
+.hero-section p { font-size: 1.25rem; margin-bottom: 2rem; opacity: 0.95; }
+.section { padding: 4rem 0; }
+.section:nth-child(even) { background: var(--light); }
+.section-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; text-align: center; }
+.grid { display: grid; gap: 2rem; }
+.grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.card { background: white; border-radius: 0.75rem; padding: 2rem; box-shadow: var(--shadow-sm); transition: all 0.3s; }
+.card:hover { transform: translateY(-5px); }
+.card-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; }
+.card-text { color: var(--text-muted); font-size: 0.95rem; }
+.icon { display: inline-flex; align-items: center; justify-content: center; width: 3rem; height: 3rem; background: var(--primary); color: white; border-radius: 0.75rem; font-size: 1.5rem; margin-bottom: 1rem; }
+.footer { background: #1f2937; color: white; padding: 3rem 0 1rem; text-align: center; }
+@keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in { animation: slideIn 0.6s ease-out; }
+@media (max-width: 768px) { .grid-cols-3 { grid-template-columns: repeat(2, 1fr); } .hero-section h1 { font-size: 2rem; } }
+@media (max-width: 640px) { .grid-cols-3 { grid-template-columns: 1fr; } .navbar-nav { gap: 1rem; } }
+</style>
 </head>
 <body>
-    <!-- Навигация -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="#">
-                <i class="bi bi-buildings-fill text-primary me-2"></i>TekhBiz Booking
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#features">Возможности</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#screenshots">Интерфейс</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#pricing">Цены</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#integrations">Интеграции</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-primary ms-3" href="#demo">Войти</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<nav class="navbar">
+<div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+<a class="navbar-brand" href="#">Booking Travel</a>
+<div class="navbar-nav" style="margin-left: auto;">
+<a href="#features">Возможности</a>
+<a href="#about">О системе</a>
+<a href="#how">Как работает</a>
+<a href="#contact" class="btn btn-primary">Контакты</a>
+</div>
+</div>
+</nav>
 
-    <!-- Герой секция -->
-    <section class="hero-section">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-7">
-                    <h1 class="display-4 fw-bold mb-4">Модуль бронирования для вашего отеля</h1>
-                    <p class="lead mb-4">Увеличьте количество прямых бронирований, автоматизируйте управление номерами и предоставьте гостям современный опыт онлайн-бронирования</p>
-                    <div class="d-flex gap-2 flex-wrap">
-                        <a href="#demo" class="btn btn-primary btn-lg">Заказать демо</a>
-                        <a href="#pricing" class="btn btn-outline-light btn-lg">Тарифы</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<section class="hero-section">
+<div class="container">
+<div class="hero-content">
+<h1>Единая платформа для управления бронированиями</h1>
+<p>Увеличивайте прямые продажи и автоматизируйте управление отелем</p>
+<div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
+<a href="#contact" class="btn btn-primary" style="padding: 1rem 2rem;">Получить демо</a>
+</div>
+</div>
+</div>
+</section>
 
-    <!-- Возможности -->
-    <section id="features" class="py-5">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="fw-bold">Специализированные возможности для отелей</h2>
-                <p class="lead text-muted">Все, что нужно для эффективного управления бронированиями в отеле</p>
-            </div>
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-4">
-                    <div class="text-center">
-                        <i class="bi bi-calendar-week feature-icon"></i>
-                        <h5>Управление номерным фондом</h5>
-                        <p class="text-muted">Контролируйте доступность номеров, устанавливайте разные тарифы в зависимости от сезона и типа номера</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="text-center">
-                        <i class="bi bi-credit-card feature-icon"></i>
-                        <h5>Онлайн-оплата</h5>
-                        <p class="text-muted">Принимайте предоплаты и полную оплату через интегрированные платежные системы</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="text-center">
-                        <i class="bi bi-translate feature-icon"></i>
-                        <h5>Многоязычная поддержка</h5>
-                        <p class="text-muted">Поддержка более 20 языков для международных гостей</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="text-center">
-                        <i class="bi bi-currency-exchange feature-icon"></i>
-                        <h5>Мультивалютность</h5>
-                        <p class="text-muted">Принимайте оплату в разных валютах с автоматическим пересчетом</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="text-center">
-                        <i class="bi bi-graph-up feature-icon"></i>
-                        <h5>Аналитика и отчетность</h5>
-                        <p class="text-muted">Детальные отчеты по загрузке номеров, выручке и другим ключевым показателям</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="text-center">
-                        <i class="bi bi-shield-check feature-icon"></i>
-                        <h5>Безопасность данных</h5>
-                        <p class="text-muted">Сертифицированная защита персональных данных гостей и финансовой информации</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="features" class="section">
+<div class="container">
+<h2 class="section-title">Наши технологии — ваши возможности для роста дохода</h2>
+<p style="text-align: center; color: var(--text-muted); margin-bottom: 3rem;">Всё необходимое для управления вашим бизнесом</p>
+<div class="grid grid-cols-3">
+<div class="card fade-in" style="animation-delay: 0.1s;">
+<div class="icon" style="background: linear-gradient(135deg, #2563eb, #3b82f6);">📈</div>
+<div class="card-title">Прямые продажи</div>
+<div class="card-text">Повышает брони на <strong>32%</strong> через сайт</div>
+</div>
+<div class="card fade-in" style="animation-delay: 0.2s;">
+<div class="icon" style="background: linear-gradient(135deg, #ec4899, #f472b6);">🏢</div>
+<div class="card-title">Управление</div>
+<div class="card-text"><strong>10+ модулей</strong> для контроля</div>
+</div>
+<div class="card fade-in" style="animation-delay: 0.3s;">
+<div class="icon" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">📊</div>
+<div class="card-title">100+ каналов</div>
+<div class="card-text">Синхронизация в одном месте</div>
+</div>
+<div class="card fade-in" style="animation-delay: 0.4s;">
+<div class="icon" style="background: linear-gradient(135deg, #10b981, #34d399);">💳</div>
+<div class="card-title">Платежи</div>
+<div class="card-text">Все <strong>платежные системы</strong></div>
+</div>
+<div class="card fade-in" style="animation-delay: 0.5s;">
+<div class="icon" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);">🌍</div>
+<div class="card-title">300+ интеграций</div>
+<div class="card-text">1С, Яндекс, Bitrix24, Iiko</div>
+</div>
+<div class="card fade-in" style="animation-delay: 0.6s;">
+<div class="icon" style="background: linear-gradient(135deg, #06b6d4, #22d3ee);">⭐</div>
+<div class="card-title">Лояльность</div>
+<div class="card-text">Повторные брони через предложения</div>
+</div>
+</div>
 
-    <!-- Скриншоты -->
-    <section id="screenshots" class="py-5 bg-light">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="fw-bold">Интерфейс системы</h2>
-                <p class="lead text-muted">Посмотрите, как выглядит наш модуль бронирования для отелей</p>
-            </div>
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800&q=80" alt="Панель администратора" class="img-fluid screenshot">
-                    <h4>Панель управления отелем</h4>
-                    <p>Удобный интерфейс для управления бронированиями, номерами и тарифами</p>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <img src="https://images.unsplash.com/photo-1556006147-8fb336b33649?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800&q=80" alt="Мобильный вид" class="img-fluid screenshot">
-                    <h4>Мобильная версия</h4>
-                    <p>Адаптивный дизайн для удобного бронирования с мобильных устройств</p>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <img src="https://images.unsplash.com/photo-1618773928121-c32242e21074?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800&q=80" alt="Календарь бронирований" class="img-fluid screenshot">
-                    <h4>Календарь бронирований</h4>
-                    <p>Визуальное отображение занятости номеров на выбранные даты</p>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <img src="https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=800&q=80" alt="Статистика и отчеты" class="img-fluid screenshot">
-                    <h4>Аналитика и отчеты</h4>
-                    <p>Детальная статистика по загрузке номеров и финансовым показателям</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<div style="background: linear-gradient(135deg, #f0f4ff, #f9f0ff); padding: 2rem; border-radius: 0.75rem; margin-top: 3rem;">
+<h3 style="text-align: center; margin-bottom: 2rem; font-size: 1.3rem; font-weight: 700;">Что ещё вы получаете</h3>
+<div class="grid" style="grid-template-columns: repeat(2, 1fr); gap: 2rem;">
+<div style="display: flex; gap: 1rem;">
+<div style="font-size: 1.5rem;">🔐</div>
+<div><strong>Безопасность</strong><br><span style="color: var(--text-muted); font-size: 0.9rem;">SSL/TLS и копии</span></div>
+</div>
+<div style="display: flex; gap: 1rem;">
+<div style="font-size: 1.5rem;">📱</div>
+<div><strong>Мобильное приложение</strong><br><span style="color: var(--text-muted); font-size: 0.9rem;">iOS и Android</span></div>
+</div>
+<div style="display: flex; gap: 1rem;">
+<div style="font-size: 1.5rem;">📈</div>
+<div><strong>Динамические цены</strong><br><span style="color: var(--text-muted); font-size: 0.9rem;">Оптимизация</span></div>
+</div>
+<div style="display: flex; gap: 1rem;">
+<div style="font-size: 1.5rem;">💬</div>
+<div><strong>Управление отзывами</strong><br><span style="color: var(--text-muted); font-size: 0.9rem;">Сбор и ответы</span></div>
+</div>
+<div style="display: flex; gap: 1rem;">
+<div style="font-size: 1.5rem;">📊</div>
+<div><strong>Аналитика</strong><br><span style="color: var(--text-muted); font-size: 0.9rem;">Отчеты и KPI</span></div>
+</div>
+<div style="display: flex; gap: 1rem;">
+<div style="font-size: 1.5rem;">🎯</div>
+<div><strong>Маркетинг</strong><br><span style="color: var(--text-muted); font-size: 0.9rem;">Email, SMS, Push</span></div>
+</div>
+</div>
+</div>
 
-    <!-- Цены -->
-    <section id="pricing" class="py-5">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="fw-bold">Выберите тарифный план</h2>
-                <p class="lead text-muted">Подходящее решение для отелей любого размера</p>
-            </div>
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <div class="card pricing-card h-100">
-                        <div class="card-body text-center p-4">
-                            <h5 class="card-title">Небольшой отель</h5>
-                            <div class="my-4">
-                                <span class="display-4 fw-bold">₽4900</span>
-                                <span class="text-muted">/месяц</span>
-                            </div>
-                            <ul class="list-unstyled mb-4">
-                                <li class="mb-2">До 20 номеров</li>
-                                <li class="mb-2">Неограниченные бронирования</li>
-                                <li class="mb-2">Поддержка 1 языка</li>
-                                <li class="mb-2">Базовые уведомления</li>
-                                <li class="mb-2 text-muted">— Мультиязычность</li>
-                                <li class="mb-2 text-muted">— API доступ</li>
-                            </ul>
-                            <a href="#" class="btn btn-outline-primary w-100">Начать</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card pricing-card h-100 border-primary">
-                        <div class="card-header bg-primary text-white text-center py-3">
-                            <h5 class="my-0">Сеть отелей</h5>
-                        </div>
-                        <div class="card-body text-center p-4">
-                            <div class="my-4">
-                                <span class="display-4 fw-bold">₽14900</span>
-                                <span class="text-muted">/месяц</span>
-                            </div>
-                            <ul class="list-unstyled mb-4">
-                                <li class="mb-2">До 100 номеров</li>
-                                <li class="mb-2">Неограниченные бронирования</li>
-                                <li class="mb-2">Поддержка 5 языков</li>
-                                <li class="mb-2">Расширенные уведомления</li>
-                                <li class="mb-2">Мультивалютность</li>
-                                <li class="mb-2">API доступ</li>
-                            </ul>
-                            <a href="#" class="btn btn-primary w-100">Попробовать</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card pricing-card h-100">
-                        <div class="card-body text-center p-4">
-                            <h5 class="card-title">Крупный курорт</h5>
-                            <div class="my-4">
-                                <span class="display-4 fw-bold">₽29900</span>
-                                <span class="text-muted">/месяц</span>
-                            </div>
-                            <ul class="list-unstyled mb-4">
-                                <li class="mb-2">Неограниченное количество номеров</li>
-                                <li class="mb-2">Неограниченные бронирования</li>
-                                <li class="mb-2">Все языки</li>
-                                <li class="mb-2">Все виды уведомлений</li>
-                                <li class="mb-2">Приоритетная поддержка 24/7</li>
-                                <li class="mb-2">Расширенный API</li>
-                            </ul>
-                            <a href="#" class="btn btn-outline-primary w-100">Заказать</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<div style="margin-top: 3rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;">
+<div style="background: white; padding: 1.5rem; border-radius: 0.75rem; text-align: center; box-shadow: var(--shadow-sm); border-top: 3px solid var(--primary);">
+<div style="font-size: 2rem; font-weight: 800; color: var(--primary);">+32%</div>
+<div style="color: var(--text-muted); font-size: 0.9rem;">Рост</div>
+</div>
+<div style="background: white; padding: 1.5rem; border-radius: 0.75rem; text-align: center; box-shadow: var(--shadow-sm); border-top: 3px solid var(--accent);">
+<div style="font-size: 2rem; font-weight: 800; color: var(--accent);">100+</div>
+<div style="color: var(--text-muted); font-size: 0.9rem;">Каналов</div>
+</div>
+<div style="background: white; padding: 1.5rem; border-radius: 0.75rem; text-align: center; box-shadow: var(--shadow-sm); border-top: 3px solid var(--success);">
+<div style="font-size: 2rem; font-weight: 800; color: var(--success);">300+</div>
+<div style="color: var(--text-muted); font-size: 0.9rem;">Интеграций</div>
+</div>
+<div style="background: white; padding: 1.5rem; border-radius: 0.75rem; text-align: center; box-shadow: var(--shadow-sm); border-top: 3px solid var(--warning);">
+<div style="font-size: 2rem; font-weight: 800; color: var(--warning);">< 3ч</div>
+<div style="color: var(--text-muted); font-size: 0.9rem;">Поддержка</div>
+</div>
+</div>
+</div>
+</section>
 
-    <!-- Интеграции -->
-    <section id="integrations" class="py-5 bg-light">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="fw-bold">Интеграции с популярными системами</h2>
-                <p class="lead text-muted">Наш модуль легко интегрируется с вашей текущей инфраструктурой</p>
-            </div>
-            <div class="row text-center">
-                <div class="col-4 col-md-2">
-                    <img src="https://via.placeholder.com/120x60?text=Oracle" alt="Oracle" class integration-logo>
-                </div>
-                <div class="col-4 col-md-2">
-                    <img src="https://via.placeholder.com/120x60?text=SiteCore" alt="SiteCore" class="integration-logo">
-                </div>
-                <div class="col-4 col-md-2">
-                    <img src="https://via.placeholder.com/120x60?text=WordPress" alt="WordPress" class="integration-logo">
-                </div>
-                <div class="col-4 col-md-2">
-                    <img src="https://via.placeholder.com/120x60?text=Joomla" alt="Joomla" class="integration-logo">
-                </div>
-                <div class="col-4 col-md-2">
-                    <img src="https://via.placeholder.com/120x60?text=Cloudbeds" alt="Cloudbeds" class="integration-logo">
-                </div>
-                <div class="col-4 col-md-2">
-                    <img src="https://via.placeholder.com/120x60?text=NetSuite" alt="NetSuite" class="integration-logo">
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="about" class="section">
+<div class="container">
+<h2 class="section-title">Почему Booking Travel?</h2>
+<div class="grid" style="grid-template-columns: repeat(2, 1fr);">
+<div style="background: white; padding: 2rem; border-radius: 0.75rem; border-left: 4px solid var(--primary);">
+<h3 style="margin-bottom: 1.5rem;">Для кого?</h3>
+<ul style="list-style: none;">
+<li style="margin-bottom: 1rem;">✓ Мини-отели</li>
+<li style="margin-bottom: 1rem;">✓ Сети отелей</li>
+<li style="margin-bottom: 1rem;">✓ Курорты</li>
+<li>✓ Санатории</li>
+</ul>
+</div>
+<div style="background: white; padding: 2rem; border-radius: 0.75rem; border-left: 4px solid var(--accent);">
+<h3 style="margin-bottom: 1.5rem;">Преимущества</h3>
+<ul style="list-style: none;">
+<li style="margin-bottom: 1rem;">✓ Простая интеграция</li>
+<li style="margin-bottom: 1rem;">✓ Поддержка 24/7</li>
+<li style="margin-bottom: 1rem;">✓ Доступные цены</li>
+<li>✓ 900+ статей</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
 
-    <!-- Демо -->
-    <section id="demo" class="cta-section">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h2 class="fw-bold mb-3">Готовы увеличить прямые бронирования?</h2>
-                    <p class="lead text-muted mb-4">Оставьте заявку для получения демо-доступа и персональной консультации</p>
-                    
-                    <form class="row g-3 justify-content-center">
-                        <div class="col-md-5">
-                            <input type="text" class="form-control form-control-lg" placeholder="Ваше имя">
-                        </div>
-                        <div class="col-md-5">
-                            <input type="email" class="form-control form-control-lg" placeholder="Email">
-                        </div>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control form-control-lg" placeholder="Название отеля">
-                        </div>
-                        <div class="col-md-10">
-                            <button type="submit" class="btn btn-primary btn-lg w-100">Получить демо-доступ</button>
-                        </div>
-                        <div class="col-md-10">
-                            <p class="small text-muted">Нажимая кнопку, вы соглашаетесь с условиями обработки персональных данных</p>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+<section id="how" class="section">
+<div class="container">
+<h2 class="section-title">Как это работает</h2>
+<p style="text-align: center; color: var(--text-muted); margin-bottom: 3rem;">4 простых шага</p>
+<div style="max-width: 800px; margin: 0 auto;">
+<div style="padding: 2rem; background: white; border-radius: 0.75rem; box-shadow: var(--shadow-sm); border-left: 4px solid var(--primary); margin-bottom: 1rem;">
+<strong style="font-size: 1.2rem; color: var(--primary);">1. Регистрация</strong> — 5 минут
+</div>
+<div style="padding: 2rem; background: white; border-radius: 0.75rem; box-shadow: var(--shadow-sm); border-left: 4px solid var(--accent); margin-bottom: 1rem;">
+<strong style="font-size: 1.2rem; color: var(--accent);">2. Подключение</strong> — 15 минут
+</div>
+<div style="padding: 2rem; background: white; border-radius: 0.75rem; box-shadow: var(--shadow-sm); border-left: 4px solid var(--success); margin-bottom: 1rem;">
+<strong style="font-size: 1.2rem; color: var(--success);">3. Настройка</strong> — 30 минут
+</div>
+<div style="padding: 2rem; background: linear-gradient(135deg, #fff5e1, #fff9f0); border-radius: 0.75rem; box-shadow: var(--shadow-sm); border-left: 4px solid var(--warning);">
+<strong style="font-size: 1.2rem; color: var(--warning);">4. Первые брони!</strong> — 24 часа
+</div>
+</div>
+</div>
+</section>
 
-    <!-- Футер -->
-    <footer class="bg-dark text-white py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 mb-4">
-                    <h5 class="fw-bold">HotelBooking System</h5>
-                    <p>Современное решение для онлайн-бронирования отелей</p>
-                    <p>© 2023 Все права защищены</p>
-                </div>
-                <div class="col-lg-2 col-md-4 mb-4">
-                    <h5>О продукте</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-white text-decoration-none">Возможности</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Тарифы</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Интеграции</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-2 col-md-4 mb-4">
-                    <h5>Поддержка</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-white text-decoration-none">Документация</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">База знаний</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Форум</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-4 col-md-4 mb-4">
-                    <h5>Контакты</h5>
-                    <ul class="list-unstyled">
-                        <li><i class="bi bi-telephone me-2"></i> +7 (800) 123-45-67</li>
-                        <li><i class="bi bi-envelope me-2"></i> info@hotelbooking.ru</li>
-                        <li><i class="bi bi-geo-alt me-2"></i> Москва, ул. Отельная, 15</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
+<section id="pricing" class="section">
+<div class="container">
+<h2 class="section-title">Бесплатно до июня 2026</h2>
+<div class="grid grid-cols-3">
+<div class="card">
+<div class="card-title" style="color: var(--success);">Мини</div>
+<div style="font-size: 2rem; font-weight: bold; margin: 1rem 0; color: var(--success);">0 ₽</div>
+<ul style="list-style: none; margin-bottom: 1.5rem;">
+<li>✓ До 20 номеров</li>
+<li>✓ Бронирования</li>
+<li>✓ Поддержка</li>
+</ul>
+<a href="#contact" class="btn btn-primary" style="width: 100%; background: var(--success);">Начать</a>
+</div>
+<div class="card" style="border-top: 4px solid var(--primary);">
+<div style="background: var(--primary); color: white; padding: 0.5rem; border-radius: 0.5rem; margin-bottom: 1rem; text-align: center; font-weight: 600; font-size: 0.85rem;">РЕКОМЕНДУЕМ</div>
+<div class="card-title" style="color: var(--primary);">Средний</div>
+<div style="font-size: 2rem; font-weight: bold; margin: 1rem 0; color: var(--primary);">0 ₽</div>
+<ul style="list-style: none; margin-bottom: 1.5rem;">
+<li>✓ До 100 номеров</li>
+<li>✓ 50+ интеграций</li>
+<li>✓ Приоритет</li>
+</ul>
+<a href="#contact" class="btn btn-primary" style="width: 100%;">Начать</a>
+</div>
+<div class="card">
+<div class="card-title" style="color: var(--accent);">Курорт</div>
+<div style="font-size: 2rem; font-weight: bold; margin: 1rem 0; color: var(--accent);">0 ₽</div>
+<ul style="list-style: none; margin-bottom: 1.5rem;">
+<li>✓ Неограниченно</li>
+<li>✓ 300+ интеграций</li>
+<li>✓ VIP поддержка</li>
+</ul>
+<a href="#contact" class="btn btn-primary" style="width: 100%; background: var(--accent);">Начать</a>
+</div>
+</div>
+</div>
+</section>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<section id="contact" class="section" style="background: linear-gradient(135deg, var(--primary), #1e40af); color: white;">
+<div class="container" style="text-align: center;">
+<h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;">Начните прямо сейчас</h2>
+<p style="font-size: 1.1rem; margin-bottom: 2rem;">Присоединитесь к отелям, которые растят доход</p>
+<div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+<a href="https://github.com/1997-LeVoN-2020/booking-travel" target="_blank" class="btn btn-primary" style="background: white; color: var(--primary);">GitHub</a>
+<a href="mailto:admin@channel-manager.local" class="btn btn-primary" style="background: rgba(255,255,255,0.2); border: 2px solid white; color: white;">Написать</a>
+</div>
+</div>
+</section>
+
+<footer class="footer">
+<div class="container">
+<div style="display: flex; gap: 2rem; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap;">
+<a href="#features" style="color: white; text-decoration: none;">Возможности</a>
+<a href="#about" style="color: white; text-decoration: none;">О системе</a>
+<a href="https://github.com/1997-LeVoN-2020/booking-travel" style="color: white; text-decoration: none;">GitHub</a>
+</div>
+<div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; margin-top: 1rem; color: rgba(255,255,255,0.7);">
+<p>&copy; 2026 Booking Travel</p>
+<p style="font-size: 0.85rem; margin-top: 0.5rem;">Разработано на Python + Django</p>
+</div>
+</div>
+</footer>
 </body>
 </html>
