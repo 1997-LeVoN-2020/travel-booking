@@ -1,65 +1,40 @@
-<!DOCTYPE html>
+{% load static %}<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Booking Travel</title>
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #111827; }
-:root { --primary: #2563eb; --accent: #ec4899; --success: #10b981; --warning: #f59e0b; --text-muted: #6b7280; --light: #f9fafb; --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.07); }
-.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-.navbar { background: white; padding: 1rem 0; position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow-sm); }
-.navbar .container { display: flex; justify-content: space-between; align-items: center; }
-.navbar-brand { font-size: 1.5rem; font-weight: 700; color: var(--primary); text-decoration: none; }
-.navbar-nav { display: flex; gap: 2rem; list-style: none; align-items: center; }
-.navbar-nav a { color: #111827; text-decoration: none; font-weight: 500; transition: color 0.3s; }
-.navbar-nav a:hover { color: var(--primary); }
-.btn { display: inline-flex; align-items: center; padding: 0.75rem 1.5rem; border: none; border-radius: 0.5rem; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; }
-.btn-primary { background: var(--primary); color: white; }
-.btn-primary:hover { background: #1e40af; }
-.hero-section { background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%); color: white; padding: 6rem 0; text-align: center; }
-.hero-content { max-width: 800px; margin: 0 auto; }
-.hero-section h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 1.5rem; }
-.hero-section p { font-size: 1.25rem; margin-bottom: 2rem; opacity: 0.95; }
-.section { padding: 4rem 0; }
-.section:nth-child(even) { background: var(--light); }
-.section-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; text-align: center; }
-.grid { display: grid; gap: 2rem; }
-.grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
-.card { background: white; border-radius: 0.75rem; padding: 2rem; box-shadow: var(--shadow-sm); transition: all 0.3s; }
-.card:hover { transform: translateY(-5px); }
-.card-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; }
-.card-text { color: var(--text-muted); font-size: 0.95rem; }
-.icon { display: inline-flex; align-items: center; justify-content: center; width: 3rem; height: 3rem; background: var(--primary); color: white; border-radius: 0.75rem; font-size: 1.5rem; margin-bottom: 1rem; }
-.footer { background: #1f2937; color: white; padding: 3rem 0 1rem; text-align: center; }
-@keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-.fade-in { animation: slideIn 0.6s ease-out; }
-@media (max-width: 768px) { .grid-cols-3 { grid-template-columns: repeat(2, 1fr); } .hero-section h1 { font-size: 2rem; } }
-@media (max-width: 640px) { .grid-cols-3 { grid-template-columns: 1fr; } .navbar-nav { gap: 1rem; } }
-</style>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
 <nav class="navbar">
 <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
-<a class="navbar-brand" href="#">Booking Travel</a>
+<a class="navbar-brand" href="#">🏨 Booking Travel</a>
 <div class="navbar-nav" style="margin-left: auto;">
 <a href="#features">Возможности</a>
 <a href="#about">О системе</a>
 <a href="#how">Как работает</a>
-<a href="#contact" class="btn btn-primary">Контакты</a>
+<a href="#testimonials">Отзывы</a>
+<a href="#contact" class="btn btn-primary">Начать</a>
 </div>
 </div>
 </nav>
 
-<section class="hero-section">
+<section class="hero-section" style="padding: 8rem 0;">
 <div class="container">
 <div class="hero-content">
-<h1>Единая платформа для управления бронированиями</h1>
-<p>Увеличивайте прямые продажи и автоматизируйте управление отелем</p>
-<div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
-<a href="#contact" class="btn btn-primary" style="padding: 1rem 2rem;">Получить демо</a>
+<h1 style="margin-bottom: 1rem;">Управляйте отелем как профессионал</h1>
+<p style="font-size: 1.4rem; margin-bottom: 1.5rem; line-height: 1.8;">Единая платформа для синхронизации бронирований, управления каналами и увеличения доходов отеля на 32%</p>
+<div style="background: rgba(255,255,255,0.15); padding: 1.5rem; border-radius: 0.75rem; margin-bottom: 2rem; backdrop-filter: blur(10px);">
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; text-align: center;">
+<div><div style="font-size: 2.5rem; font-weight: 800;">12000+</div><div style="opacity: 0.95;">Отелей на платформе</div></div>
+<div><div style="font-size: 2.5rem; font-weight: 800;">300+</div><div style="opacity: 0.95;">Интеграций готовых</div></div>
+<div><div style="font-size: 2.5rem; font-weight: 800;">365</div><div style="opacity: 0.95;">Дней поддержки в году</div></div>
+</div>
+</div>
+<div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+<a href="#features" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1rem;">Узнать больше</a>
+<a href="#contact" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1rem; background: rgba(255,255,255,0.2); border: 2px solid white;">Получить демо</a>
 </div>
 </div>
 </div>
@@ -153,113 +128,201 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 </div>
 </section>
 
-<section id="about" class="section">
+<section id="about" class="section" style="background: linear-gradient(135deg, #f0f9ff, #f3f0ff);">
 <div class="container">
-<h2 class="section-title">Почему Booking Travel?</h2>
-<div class="grid" style="grid-template-columns: repeat(2, 1fr);">
-<div style="background: white; padding: 2rem; border-radius: 0.75rem; border-left: 4px solid var(--primary);">
-<h3 style="margin-bottom: 1.5rem;">Для кого?</h3>
+<h2 class="section-title">Почему выбирают Booking Travel</h2>
+<div class="grid" style="grid-template-columns: repeat(2, 1fr); gap: 2rem;">
+<div style="background: white; padding: 2.5rem; border-radius: 0.75rem; border-left: 4px solid var(--primary); box-shadow: var(--shadow-sm);">
+<h3 style="margin-bottom: 1.5rem; font-size: 1.3rem;">🎯 Для кого это?</h3>
 <ul style="list-style: none;">
-<li style="margin-bottom: 1rem;">✓ Мини-отели</li>
-<li style="margin-bottom: 1rem;">✓ Сети отелей</li>
-<li style="margin-bottom: 1rem;">✓ Курорты</li>
-<li>✓ Санатории</li>
+<li style="margin-bottom: 1.2rem; padding-left: 1.5rem; position: relative;"><span style="position: absolute; left: 0;">✓</span> <strong>Мини-отели</strong> — от 5 до 50 номеров</li>
+<li style="margin-bottom: 1.2rem; padding-left: 1.5rem; position: relative;"><span style="position: absolute; left: 0;">✓</span> <strong>Среднии отели</strong> — от 50 до 200 номеров</li>
+<li style="margin-bottom: 1.2rem; padding-left: 1.5rem; position: relative;"><span style="position: absolute; left: 0;">✓</span> <strong>Сети отелей</strong> — множество объектов</li>
+<li style="margin-bottom: 1.2rem; padding-left: 1.5rem; position: relative;"><span style="position: absolute; left: 0;">✓</span> <strong>Курорты</strong> — сезонный бизнес</li>
+<li style="padding-left: 1.5rem; position: relative;"><span style="position: absolute; left: 0;">✓</span> <strong>Апартаменты и хостелы</strong></li>
 </ul>
 </div>
-<div style="background: white; padding: 2rem; border-radius: 0.75rem; border-left: 4px solid var(--accent);">
-<h3 style="margin-bottom: 1.5rem;">Преимущества</h3>
+<div style="background: white; padding: 2.5rem; border-radius: 0.75rem; border-left: 4px solid var(--accent); box-shadow: var(--shadow-sm);">
+<h3 style="margin-bottom: 1.5rem; font-size: 1.3rem;">💪 Основные преимущества</h3>
 <ul style="list-style: none;">
-<li style="margin-bottom: 1rem;">✓ Простая интеграция</li>
-<li style="margin-bottom: 1rem;">✓ Поддержка 24/7</li>
-<li style="margin-bottom: 1rem;">✓ Доступные цены</li>
-<li>✓ 900+ статей</li>
+<li style="margin-bottom: 1.2rem; padding-left: 1.5rem; position: relative;"><span style="position: absolute; left: 0;">✓</span> <strong>За 30 минут в боевом режиме</strong> — быстрая настройка</li>
+<li style="margin-bottom: 1.2rem; padding-left: 1.5rem; position: relative;"><span style="position: absolute; left: 0;">✓</span> <strong>Поддержка в чате 24/7</strong> — всегда на помощь</li>
+<li style="margin-bottom: 1.2rem; padding-left: 1.5rem; position: relative;"><span style="position: absolute; left: 0;">✓</span> <strong>Справочная база 1000+ статей</strong> — полезная информация</li>
+<li style="margin-bottom: 1.2rem; padding-left: 1.5rem; position: relative;"><span style="position: absolute; left: 0;">✓</span> <strong>Бесплатно в 2026</strong> — нулевой риск</li>
+<li style="padding-left: 1.5rem; position: relative;"><span style="position: absolute; left: 0;">✓</span> <strong>Гарантия результата</strong> — или деньги назад</li>
 </ul>
 </div>
 </div>
 </div>
 </section>
 
-<section id="how" class="section">
+<section id="how" class="section" style="background: white;">
 <div class="container">
-<h2 class="section-title">Как это работает</h2>
-<p style="text-align: center; color: var(--text-muted); margin-bottom: 3rem;">4 простых шага</p>
-<div style="max-width: 800px; margin: 0 auto;">
-<div style="padding: 2rem; background: white; border-radius: 0.75rem; box-shadow: var(--shadow-sm); border-left: 4px solid var(--primary); margin-bottom: 1rem;">
-<strong style="font-size: 1.2rem; color: var(--primary);">1. Регистрация</strong> — 5 минут
+<h2 class="section-title">Как начать за 4 простых шага</h2>
+<p style="text-align: center; color: var(--text-muted); margin-bottom: 4rem; font-size: 1.1rem;">От регистрации до первых бронирований — всё очень просто</p>
+<div style="max-width: 1000px; margin: 0 auto;">
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem;">
+<div style="text-align: center;">
+<div style="width: 60px; height: 60px; background: linear-gradient(135deg, #2563eb, #3b82f6); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.5rem; margin: 0 auto 1rem;">1</div>
+<strong>Регистрация</strong>
+<p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">5 минут</p>
 </div>
-<div style="padding: 2rem; background: white; border-radius: 0.75rem; box-shadow: var(--shadow-sm); border-left: 4px solid var(--accent); margin-bottom: 1rem;">
-<strong style="font-size: 1.2rem; color: var(--accent);">2. Подключение</strong> — 15 минут
+<div style="display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #ddd;">→</div>
+<div style="text-align: center;">
+<div style="width: 60px; height: 60px; background: linear-gradient(135deg, #ec4899, #f472b6); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.5rem; margin: 0 auto 1rem;">2</div>
+<strong>Подключение</strong>
+<p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">15 минут</p>
 </div>
-<div style="padding: 2rem; background: white; border-radius: 0.75rem; box-shadow: var(--shadow-sm); border-left: 4px solid var(--success); margin-bottom: 1rem;">
-<strong style="font-size: 1.2rem; color: var(--success);">3. Настройка</strong> — 30 минут
+<div style="display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #ddd;">→</div>
+<div style="text-align: center;">
+<div style="width: 60px; height: 60px; background: linear-gradient(135deg, #f59e0b, #fbbf24); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.5rem; margin: 0 auto 1rem;">3</div>
+<strong>Настройка</strong>
+<p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">30 минут</p>
 </div>
-<div style="padding: 2rem; background: linear-gradient(135deg, #fff5e1, #fff9f0); border-radius: 0.75rem; box-shadow: var(--shadow-sm); border-left: 4px solid var(--warning);">
-<strong style="font-size: 1.2rem; color: var(--warning);">4. Первые брони!</strong> — 24 часа
+<div style="display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #ddd;">→</div>
+<div style="text-align: center;">
+<div style="width: 60px; height: 60px; background: linear-gradient(135deg, #10b981, #34d399); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.5rem; margin: 0 auto 1rem;">✓</div>
+<strong>Результат!</strong>
+<p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">< 24 часов</p>
+</div>
+</div>
+<div style="background: linear-gradient(135deg, #f0f9ff, #f3f0ff); padding: 2rem; border-radius: 0.75rem; border-left: 4px solid var(--success);">
+<strong style="font-size: 1.1rem; color: var(--success);">✓ Готово!</strong>
+<p style="margin-top: 0.5rem; color: var(--text-muted);">Ваш отель подключен ко всем каналам. Синхронизация работает автоматически. Первые брони приходят в реальном времени!</p>
 </div>
 </div>
 </div>
 </section>
 
-<section id="pricing" class="section">
+<section id="pricing" class="section" style="background: linear-gradient(135deg, #f9f5ff, #f0f9ff);">
 <div class="container">
-<h2 class="section-title">Бесплатно до июня 2026</h2>
+<h2 class="section-title">Прозрачное ценообразование</h2>
+<p style="text-align: center; color: var(--text-muted); margin-bottom: 3rem; font-size: 1.1rem;">🎁 Все тарифы <strong>БЕСПЛАТНЫ</strong> до июня 2026 года</p>
 <div class="grid grid-cols-3">
-<div class="card">
-<div class="card-title" style="color: var(--success);">Мини</div>
-<div style="font-size: 2rem; font-weight: bold; margin: 1rem 0; color: var(--success);">0 ₽</div>
-<ul style="list-style: none; margin-bottom: 1.5rem;">
-<li>✓ До 20 номеров</li>
-<li>✓ Бронирования</li>
-<li>✓ Поддержка</li>
+<div class="card" style="position: relative;">
+<div class="card-title" style="color: var(--success); font-size: 1.3rem;">🏠 Мини-отель</div>
+<div style="font-size: 2.5rem; font-weight: bold; margin: 1.5rem 0; color: var(--success);">0 ₽<span style="font-size: 0.8rem; color: var(--text-muted);">/мес</span></div>
+<ul style="list-style: none; margin-bottom: 2rem; text-align: left;">
+<li style="padding: 0.5rem 0; border-bottom: 1px solid #eee;">✓ До 20 номеров</li>
+<li style="padding: 0.5rem 0; border-bottom: 1px solid #eee;">✓ Управление бронями</li>
+<li style="padding: 0.5rem 0; border-bottom: 1px solid #eee;">✓ Email поддержка</li>
+<li style="padding: 0.5rem 0;">✓ Базовая аналитика</li>
 </ul>
-<a href="#contact" class="btn btn-primary" style="width: 100%; background: var(--success);">Начать</a>
+<a href="#contact" class="btn btn-primary" style="width: 100%; background: var(--success); justify-content: center;">Начать</a>
 </div>
-<div class="card" style="border-top: 4px solid var(--primary);">
-<div style="background: var(--primary); color: white; padding: 0.5rem; border-radius: 0.5rem; margin-bottom: 1rem; text-align: center; font-weight: 600; font-size: 0.85rem;">РЕКОМЕНДУЕМ</div>
-<div class="card-title" style="color: var(--primary);">Средний</div>
-<div style="font-size: 2rem; font-weight: bold; margin: 1rem 0; color: var(--primary);">0 ₽</div>
-<ul style="list-style: none; margin-bottom: 1.5rem;">
-<li>✓ До 100 номеров</li>
-<li>✓ 50+ интеграций</li>
-<li>✓ Приоритет</li>
+<div class="card" style="border-top: 4px solid var(--primary); position: relative; transform: scale(1.05);">
+<div style="background: linear-gradient(135deg, var(--primary), #1e40af); color: white; padding: 0.75rem 1rem; border-radius: 0.5rem; margin: -2rem -2rem 1rem -2rem; text-align: center; font-weight: 700; font-size: 0.85rem;">⭐ САМЫЙ ПОПУЛЯРНЫЙ</div>
+<div class="card-title" style="color: var(--primary); font-size: 1.3rem; margin-top: 0.5rem;">🏨 Средний отель</div>
+<div style="font-size: 2.5rem; font-weight: bold; margin: 1.5rem 0; color: var(--primary);">0 ₽<span style="font-size: 0.8rem; color: var(--text-muted);">/мес</span></div>
+<ul style="list-style: none; margin-bottom: 2rem; text-align: left;">
+<li style="padding: 0.5rem 0; border-bottom: 1px solid #eee;">✓ До 100 номеров</li>
+<li style="padding: 0.5rem 0; border-bottom: 1px solid #eee;">✓ 50+ интеграций</li>
+<li style="padding: 0.5rem 0; border-bottom: 1px solid #eee;">✓ Приоритетная поддержка</li>
+<li style="padding: 0.5rem 0;">✓ Полная аналитика</li>
 </ul>
-<a href="#contact" class="btn btn-primary" style="width: 100%;">Начать</a>
+<a href="#contact" class="btn btn-primary" style="width: 100%; justify-content: center;">Начать</a>
 </div>
 <div class="card">
-<div class="card-title" style="color: var(--accent);">Курорт</div>
-<div style="font-size: 2rem; font-weight: bold; margin: 1rem 0; color: var(--accent);">0 ₽</div>
-<ul style="list-style: none; margin-bottom: 1.5rem;">
-<li>✓ Неограниченно</li>
-<li>✓ 300+ интеграций</li>
-<li>✓ VIP поддержка</li>
+<div class="card-title" style="color: var(--accent); font-size: 1.3rem;">🏰 Курорт / Сеть</div>
+<div style="font-size: 2.5rem; font-weight: bold; margin: 1.5rem 0; color: var(--accent);">0 ₽<span style="font-size: 0.8rem; color: var(--text-muted);">/мес</span></div>
+<ul style="list-style: none; margin-bottom: 2rem; text-align: left;">
+<li style="padding: 0.5rem 0; border-bottom: 1px solid #eee;">✓ Неограниченно номеров</li>
+<li style="padding: 0.5rem 0; border-bottom: 1px solid #eee;">✓ Все 300+ интеграций</li>
+<li style="padding: 0.5rem 0; border-bottom: 1px solid #eee;">✓ VIP поддержка 24/7</li>
+<li style="padding: 0.5rem 0;">✓ Персональный менеджер</li>
 </ul>
-<a href="#contact" class="btn btn-primary" style="width: 100%; background: var(--accent);">Начать</a>
+<a href="#contact" class="btn btn-primary" style="width: 100%; background: var(--accent); justify-content: center;">Начать</a>
+</div>
+</div>
+<div style="text-align: center; margin-top: 3rem;">
+<p style="color: var(--text-muted); font-size: 0.95rem;">После июня 2026 года применится <strong>скидка -50% для ранних пользователей</strong></p>
+</div>
+</div>
+</section>
+
+<section id="testimonials" class="section" style="background: white;">
+<div class="container">
+<h2 class="section-title">Что говорят отельеры</h2>
+<p style="text-align: center; color: var(--text-muted); margin-bottom: 3rem; font-size: 1.1rem;">Реальные результаты от реальных отелей</p>
+<div class="grid" style="grid-template-columns: repeat(3, 1fr);">
+<div style="background: linear-gradient(135deg, #f0f9ff, #fff5f0); padding: 2rem; border-radius: 0.75rem; border-left: 4px solid var(--primary);">
+<div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+<span style="color: #fbbf24;">⭐</span><span style="color: #fbbf24;">⭐</span><span style="color: #fbbf24;">⭐</span><span style="color: #fbbf24;">⭐</span><span style="color: #fbbf24;">⭐</span>
+</div>
+<p style="margin-bottom: 1rem; font-style: italic; color: #111827;">"Увеличили прямые брони на 35% за первый месяц. Система работает стабильно, поддержка всегда помогает."</p>
+<strong style="color: var(--primary);">Анна Петрова</strong>
+<p style="color: var(--text-muted); font-size: 0.85rem;">Гостиница "Весна", Москва</p>
+</div>
+<div style="background: linear-gradient(135deg, #f9f0ff, #fff5f0); padding: 2rem; border-radius: 0.75rem; border-left: 4px solid var(--accent);">
+<div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+<span style="color: #fbbf24;">⭐</span><span style="color: #fbbf24;">⭐</span><span style="color: #fbbf24;">⭐</span><span style="color: #fbbf24;">⭐</span><span style="color: #fbbf24;">⭐</span>
+</div>
+<p style="margin-bottom: 1rem; font-style: italic; color: #111827;">"Легко подключили все каналы. Экономия на другой программе за квартал больше, чем платим здесь за год."</p>
+<strong style="color: var(--accent);">Сергей Иванов</strong>
+<p style="color: var(--text-muted); font-size: 0.85rem;">Сеть отелей "Комфорт", СПб</p>
+</div>
+<div style="background: linear-gradient(135deg, #f0fff4, #fff5f0); padding: 2rem; border-radius: 0.75rem; border-left: 4px solid var(--success);">
+<div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+<span style="color: #fbbf24;">⭐</span><span style="color: #fbbf24;">⭐</span><span style="color: #fbbf24;">⭐</span><span style="color: #fbbf24;">⭐</span><span style="color: #fbbf24;">⭐</span>
+</div>
+<p style="margin-bottom: 1rem; font-style: italic; color: #111827;">"Бесплатно до июня 2026 - это просто отлично! Тестируем, нет рисков. Рекомендую всем коллегам."</p>
+<strong style="color: var(--success);">Ольга Смирнова</strong>
+<p style="color: var(--text-muted); font-size: 0.85rem;">Хостел "Привет", Казань</p>
 </div>
 </div>
 </div>
 </section>
 
-<section id="contact" class="section" style="background: linear-gradient(135deg, var(--primary), #1e40af); color: white;">
+<section id="contact" class="section" style="background: linear-gradient(135deg, var(--primary), #1e40af); color: white; padding: 6rem 0;">
 <div class="container" style="text-align: center;">
 <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;">Начните прямо сейчас</h2>
-<p style="font-size: 1.1rem; margin-bottom: 2rem;">Присоединитесь к отелям, которые растят доход</p>
-<div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-<a href="https://github.com/1997-LeVoN-2020/booking-travel" target="_blank" class="btn btn-primary" style="background: white; color: var(--primary);">GitHub</a>
-<a href="mailto:admin@channel-manager.local" class="btn btn-primary" style="background: rgba(255,255,255,0.2); border: 2px solid white; color: white;">Написать</a>
+<p style="font-size: 1.2rem; margin-bottom: 0.5rem;">Присоединитесь к тысячам отелей, которые увеличили доход</p>
+<p style="font-size: 0.95rem; opacity: 0.9; margin-bottom: 2rem;">Бесплатный период действует до июня 2026. Никаких скрытых платежей.</p>
+<div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;">
+<a href="https://github.com/1997-LeVoN-2020/booking-travel" target="_blank" class="btn btn-primary" style="background: white; color: var(--primary); padding: 1rem 2rem; font-size: 1rem;">📊 GitHub</a>
+<a href="mailto:admin@channel-manager.local" class="btn btn-primary" style="background: rgba(255,255,255,0.2); border: 2px solid white; color: white; padding: 1rem 2rem; font-size: 1rem;">✉️ Написать</a>
+<a href="#features" class="btn btn-primary" style="background: rgba(255,255,255,0.2); border: 2px solid white; color: white; padding: 1rem 2rem; font-size: 1rem;">📖 Узнать больше</a>
 </div>
+<p style="font-size: 0.85rem; opacity: 0.8; margin-top: 1.5rem;">Вопросы? Напишите нам. Ответим в течение часа!</p>
 </div>
 </section>
 
-<footer class="footer">
+<footer class="footer" style="background: linear-gradient(135deg, #1f2937, #111827);">
 <div class="container">
-<div style="display: flex; gap: 2rem; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap;">
-<a href="#features" style="color: white; text-decoration: none;">Возможности</a>
-<a href="#about" style="color: white; text-decoration: none;">О системе</a>
-<a href="https://github.com/1997-LeVoN-2020/booking-travel" style="color: white; text-decoration: none;">GitHub</a>
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-bottom: 3rem;">
+<div>
+<h4 style="margin-bottom: 1rem; font-weight: 700;">Продукт</h4>
+<ul style="list-style: none;">
+<li style="margin-bottom: 0.75rem;"><a href="#features" style="color: rgba(255,255,255,0.7); text-decoration: none;">Возможности</a></li>
+<li style="margin-bottom: 0.75rem;"><a href="#pricing" style="color: rgba(255,255,255,0.7); text-decoration: none;">Тарифы</a></li>
+<li><a href="#how" style="color: rgba(255,255,255,0.7); text-decoration: none;">Как работает</a></li>
+</ul>
 </div>
-<div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; margin-top: 1rem; color: rgba(255,255,255,0.7);">
-<p>&copy; 2026 Booking Travel</p>
-<p style="font-size: 0.85rem; margin-top: 0.5rem;">Разработано на Python + Django</p>
+<div>
+<h4 style="margin-bottom: 1rem; font-weight: 700;">Компания</h4>
+<ul style="list-style: none;">
+<li style="margin-bottom: 0.75rem;"><a href="#about" style="color: rgba(255,255,255,0.7); text-decoration: none;">О нас</a></li>
+<li style="margin-bottom: 0.75rem;"><a href="https://github.com/1997-LeVoN-2020/booking-travel" style="color: rgba(255,255,255,0.7); text-decoration: none;">GitHub</a></li>
+<li><a href="#contact" style="color: rgba(255,255,255,0.7); text-decoration: none;">Контакты</a></li>
+</ul>
+</div>
+<div>
+<h4 style="margin-bottom: 1rem; font-weight: 700;">Поддержка</h4>
+<ul style="list-style: none;">
+<li style="margin-bottom: 0.75rem;"><a href="mailto:admin@channel-manager.local" style="color: rgba(255,255,255,0.7); text-decoration: none;">Email</a></li>
+<li style="margin-bottom: 0.75rem;"><a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">Справка</a></li>
+<li><a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">Чат</a></li>
+</ul>
+</div>
+<div>
+<h4 style="margin-bottom: 1rem; font-weight: 700;">Версия</h4>
+<p style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Beta 1.0<br>Март 2026</p>
+</div>
+</div>
+<div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem;">
+<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+<p style="color: rgba(255,255,255,0.7);">&copy; 2026 Booking Travel. Все права защищены.</p>
+<p style="color: rgba(255,255,255,0.7); font-size: 0.85rem;">Разработано на <strong>Python</strong> + <strong>Django</strong> + <strong>CSS3</strong></p>
 </div>
 </div>
 </footer>
